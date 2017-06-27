@@ -1,0 +1,19 @@
+---
+title: "{Title}"
+collection: notes
+permalink: /notes/{Filename}
+date: {Date}
+{Tags}
+---
+
+{Note}
+
+{See also}
+
+{Material}
+
+{Papers}
+
+{Books}
+
+
