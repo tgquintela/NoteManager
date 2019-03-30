@@ -7,6 +7,8 @@ import sys
 import os
 from os.path import isfile, isdir
 
+from NoteManager.tools_notes import transforming2md
+
 required_pars = ['tagnames', 'listtypte', 'definer', 'md_templates',
                  'format2md_list', ]
 volunter_pars = ['tagtitle', 'summarytags', 'filter_summary',
@@ -18,7 +20,7 @@ volunter_pars = ['tagtitle', 'summarytags', 'filter_summary',
 #    'filter_summary': ,
 #    'format_summary_md':,
 #    'summary_template': ,
-#    'format2md_listsummary': 
+#    'format2md_listsummary':
 #                    }
 
 
@@ -69,4 +71,3 @@ if __name__ == "__main__":
                     tagtitle, summarytags, format2md_listsummary,
                     summary_template, note_template, filter_summary, pathnotes,
                     pathnotes_md)
-
