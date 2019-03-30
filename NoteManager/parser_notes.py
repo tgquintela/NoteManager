@@ -111,20 +111,26 @@ def transforming2md(tagnames=[], format2md_list=[], md_templates=[],
                      filter_summary, summary_template)
     ### 1. Remove files folder of markdown translated notes
     ## Cleaning folder Notes_md
-#    pathnotes_md = '/home/antonio/code/temporal_tasks/temporal_tasks/Notes_md'
     for (dirpath, dirnames, filenames) in walk(pathnotes_md):
         for file_md in filenames:
             os.remove(join(pathnotes_md, file_md))
+        for folder in dirnames:
+            for (dirpathsub, _, filenamessub) in walk(folder):
+                for file_md in filenamessub:
+                    os.remove(join(folder, file_md))
+            os.remove(join(pathnotes_md, folder))
+    os.makedirs(join(pathnotes_md, 'notes'))
 
     ### 2. Parser and transformation
     filenames = get_filenames(pathnotes)
+    notes_data = []
     index_note = []
     for filename in filenames:
         filepath = join(pathnotes, filename)
         note_info = parse_note(filepath, tagnames, listtypte, definer)
         namefile = note_info[tagtitle].lower().replace(' ', '_')
         if namefile == '':
-#            print filepath
+#            print(filepath)
             continue
 
         ## Format text
@@ -137,10 +143,19 @@ def transforming2md(tagnames=[], format2md_list=[], md_templates=[],
         ## Summary adding to index note
         summarytagsinfo = filter_summarytags(note_info, summarytags)
         index_note.append(summarytagsinfo)
+        notes_data.append(notedict)
+
+    notes_data = sorted(notes_data, key=lambda k: k['Date'])
+    for i, notedict in enumerate(notes_data):
+        notedict['order_item'] = i
+        notes_data[i] = notedict
         ## Create note from template
         note = note_template.format(**notedict)
         ## Store individual note
-        file_ = open(join(pathnotes_md, namefile+'.md'), 'w+')
+        file_ = open(join(pathnotes_md,
+                          'notes',
+                          notedict['Filename']+'.md'),
+                     'w+')
         file_.write(note)
         file_.close()
 
@@ -150,4 +165,8 @@ def transforming2md(tagnames=[], format2md_list=[], md_templates=[],
     ## Store index
     file_ = open(join(pathnotes_md, 'index.md'), 'w+')
     file_.write(index_md)
+    file_.close()
+    ## Store collection
+    file_ = open(join(pathnotes_md, 'collection.json'), 'w+')
+    json.dump(notes_data, file_)
     file_.close()

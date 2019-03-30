@@ -13,7 +13,8 @@ folder_name = ''
 list_parameters = []
 
 
-parts = ['Title', 'Date', 'Note', 'Tags', 'See also', 'Material', 'Papers', 'Books']
+parts = ['Title', 'Date', 'Note', 'Tags', 'See also', 'Material', 'Papers',
+         'Books']
 listtypte = [False, False, False, ',', ',', '\n', '\n', '\n']
 webpath = ''
 
@@ -92,6 +93,7 @@ def create_md_itemizes(listas):
             lista += '* '+e+'\n'
     return lista
 
+
 def create_md_tags(listas):
     """Create linked tags from the list parsed. TEMPORAL
     """
@@ -142,13 +144,11 @@ def transforming2md():
         note_info = parse(filename)
         namefile = note_info['Title'].lower().replace(' ', '_')
         if namefile == '':
-            print filename
+            print(filename)
         note = semistructured2note(note_info)
         file = open(join(pathnotes_md, namefile+'.md'), 'w+')
         file.write(note)
-        
-    
+
+
 if __name__ == "__main__":
     transforming2md()
-
-        
