@@ -16,19 +16,23 @@ from NoteManager.aux_formatters import format_null, format_intra_link,\
 ## It gives the program the parser information of the not structured file
 ## in which the original notes are written.
 # Tag names of each part of the structured note:
+## Default: []
 tagnames = ['Title', 'Date', 'Note', 'Tags', 'See also', 'Material', 'Papers',
-            'Books']                                            ## Default: []
+            'Books']
 # For each tagname if it is a list or not.
 # If it is should be specified the separator:
-listtypte = [False, False, False, ',', ',', '\n', '\n', '\n']   ## Default: []
-definer = ':'                                                   ## Default: ':'
-tagtitle = 'Title'                                              ## Default: None
+## Default: []
+listtypte = [False, False, False, ',', ',', '\n', '\n', '\n']
+## Default: ':'
+definer = ':'
+## Default: None
+tagtitle = 'Title'
 
 ### Encoding information to create properly text to markdown
 webpath = '/notes'
 ## Note parts
 # How to format each of the tagnames:
-md_templates = ["# %s\n", "%s\n", "%s\n", "***%s***: %s\n", "#### %s\n%s\n",
+md_templates = ["%s", "%s\n", "%s\n", "***%s***: %s\n", "#### %s\n%s\n",
                 "## %s\n%s\n", "## %s\n%s\n", "## %s\n%s\n"
                 ]
 # Formatters of the lists in the output note.
@@ -66,5 +70,3 @@ date: {Date}
 """
 # Format each line element of the list
 format2md_listsummary = ['* ', ['    '], format_summary_md, '']
-
-
